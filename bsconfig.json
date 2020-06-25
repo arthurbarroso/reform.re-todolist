@@ -1,0 +1,28 @@
+{
+  "name": "reformexample",
+  "version": "0.1.0",
+  "sources": {
+    "dir" : "src",
+    "subdirs" : true
+  },
+  "package-specs": {
+    "module": "commonjs",
+    "in-source": true
+  },
+  "suffix": ".bs.js",
+  "bs-dependencies": [
+    "reason-react",
+    "bs-reform",
+    "reschema"
+  ],
+  "warnings": {
+    "error" : "+101"
+  },
+  "refmt": 3,
+  "reason": {
+    "react-jsx": 3
+  },
+  "ppx-flags": [
+    "lenses-ppx/ppx"
+   ]
+}
