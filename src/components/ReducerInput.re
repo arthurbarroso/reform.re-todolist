@@ -1,4 +1,15 @@
 open BsReform;
+open Css;
+
+let baseStyle =
+  merge([
+    style([
+      display(`flex),
+      flexDirection(column),
+      alignItems(center)
+    ]),
+    "base-style"
+  ]);
 
 
 module StateLenses = [%lenses
@@ -16,7 +27,7 @@ module FieldString = {
       field
       render={({handleChange, error, value, validate}) =>
         <label>
-          <span> {React.string(label)} </span>
+          <Label text=label />
           <input
             value
             onChange={Helpers.handleChange(handleChange)}
@@ -49,17 +60,19 @@ let make = (~handleCreate) => {
     (),
   );
 
+  <div className=baseStyle>
   <TodoAddForm.Provider value=reform>
-    <form
-      onSubmit={event => {
-        ReactEvent.Synthetic.preventDefault(event);
-        reform.submit();
-      }}>
-      <FieldString field=StateLenses.Content label="Content" />
-      {reform.state.formState == Submitting
-         ? <p> {React.string("Saving...")} </p>
-         : <button type_="submit"> {"Submit" |> React.string} </button>}
-    </form>
-  </TodoAddForm.Provider>;
+  <form
+    onSubmit={event => {
+      ReactEvent.Synthetic.preventDefault(event);
+      reform.submit();
+    }}>
+    <FieldString field=StateLenses.Content label="Content" />
+    {reform.state.formState == Submitting
+       ? <p> {React.string("Saving...")} </p>
+       : <Button onClick={_ => reform.submit()} text="Submit" />}
+  </form>
+  </TodoAddForm.Provider>
+  </div>;
 
 }

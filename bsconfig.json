@@ -13,7 +13,9 @@
   "bs-dependencies": [
     "reason-react",
     "bs-reform",
-    "reschema"
+    "reschema",
+    "bs-css",
+    "bs-css-emotion"
   ],
   "warnings": {
     "error" : "+101"

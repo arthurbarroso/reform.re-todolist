@@ -1,4 +1,16 @@
 open BsReform;
+open Css;
+
+let reformStyle =
+  merge([
+    style([
+      height(`vh(100.0)),
+      display(`flex),
+      flexDirection(column),
+      alignItems(center)
+    ]),
+    "reformForm-style"
+  ]);
 
 
 module TodoLenses = [%lenses
@@ -52,46 +64,40 @@ let make = () => {
     (),
   );
 
-  <form
-  onSubmit={event => {
-    ReactEvent.Synthetic.preventDefault(event);
-    submit();
-  }}>
+  <div className=reformStyle>
+    <form
+    onSubmit={event => {
+      ReactEvent.Synthetic.preventDefault(event);
+      submit();
+    }}>
 
-  <button onClick={_ => arrayPush(Todos, {content: "", completed: false})}>
-    {React.string("Add Task")}
-  </button>
-  {state.values.todos
-   ->Belt.Array.mapWithIndex((index, todo) =>
-       <>
-         <hr />
-         <label>
-           <span> {"Content " |> ReasonReact.string} </span>
-           <input
-             value={todo.content}
-             onChange={BsReform.Helpers.handleChange(content =>
-               arrayUpdateByIndex(
-                 ~field=Todos,
-                 ~index,
-                 {...todo, content},
-               )
-             )}
-           />
-         </label>
-         <span>
-           {React.string(" is done? " ++ string_of_bool(todo.completed) ++ " ")}
-         </span>
-         <button onClick={_ => arrayUpdateByIndex(~field=Todos, ~index, {...todo, completed: !todo.completed})}>
-           {React.string("Toggle")}
-         </button>
-         <button onClick={_ => arrayRemoveByIndex(Todos, index)}>
-           {React.string("Remove")}
-         </button>
-         <hr />
-       </>
-     )
-   ->React.array}
-   <a href="/reducer">{"Use React's reducer" |> React.string}</a>
-</form>;
+    <Button onClick={_ => arrayPush(Todos, {content: "", completed: false})} text="Add Task" />
+    {state.values.todos
+    ->Belt.Array.mapWithIndex((index, todo) =>
+        <>
+          <hr />
+          <label>
+            <Label text="Content " />
+            <input
+              value={todo.content}
+              onChange={BsReform.Helpers.handleChange(content =>
+                arrayUpdateByIndex(
+                  ~field=Todos,
+                  ~index,
+                  {...todo, content},
+                )
+              )}
+            />
+          </label>
+          <Label text=(" is done?" ++ string_of_bool(todo.completed)) />
+
+          <Button onClick={_ => arrayUpdateByIndex(~field=Todos, ~index, {...todo, completed: !todo.completed})} text="Toggle" />
+          <Button onClick={_ => arrayRemoveByIndex(Todos, index)} text="Remove" />
+        </>
+      )
+    ->React.array}
+  </form>
+  <a href="/reducer">{"Use React's reducer" |> React.string}</a>
+  </div>
 };
 
