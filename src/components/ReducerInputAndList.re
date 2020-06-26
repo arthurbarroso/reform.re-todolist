@@ -19,10 +19,9 @@ let make = () => {
   let allTodos = List.map(todo => <TodoItem todo handleCheck handleDelete />, todos);
 
   <div>
-    <Input handleCreate/>
+    <ReducerInput handleCreate/>
     {
       ReasonReact.array(Array.of_list(allTodos))
     }
-    <Input2 />
   </div>
 }

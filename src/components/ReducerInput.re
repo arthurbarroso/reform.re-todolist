@@ -1,14 +1,6 @@
 open BsReform;
 
 
-// module TodoLenses = [%lenses
-//   type todow = {
-//     id: int,
-//     content: string,
-//     completed: bool
-//   }
-// ];
-
 module StateLenses = [%lenses
   type state = {
     content: string,
