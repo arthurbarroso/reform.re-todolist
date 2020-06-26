@@ -3,7 +3,8 @@ open BsReform;
 
 module TodoLenses = [%lenses
   type todo = {
-    content: string
+    content: string,
+    completed: bool
   }
 ];
 
@@ -20,6 +21,8 @@ let make = () => {
   let {
     state,
     submit,
+    getFieldError,
+    handleChange,
     arrayPush,
     arrayUpdateByIndex,
     arrayRemoveByIndex,
@@ -57,7 +60,7 @@ let make = () => {
     submit();
   }}>
 
-  <button onClick={_ => arrayPush(Todos, {content: ""})}>
+  <button onClick={_ => arrayPush(Todos, {content: "", completed: false})}>
     {React.string("Add Task")}
   </button>
   {state.values.todos
@@ -77,8 +80,14 @@ let make = () => {
              )}
            />
          </label>
+         <span>
+           {React.string(" is done? " ++ string_of_bool(todo.completed) ++ " ")}
+         </span>
+         <button onClick={_ => arrayUpdateByIndex(~field=Todos, ~index, {...todo, completed: !todo.completed})}>
+           {React.string("Toggle")}
+         </button>
          <button onClick={_ => arrayRemoveByIndex(Todos, index)}>
-           {React.string("Remove (When you've done it already")}
+           {React.string("Remove")}
          </button>
          <hr />
        </>
