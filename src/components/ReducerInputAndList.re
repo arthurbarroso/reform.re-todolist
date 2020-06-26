@@ -23,5 +23,6 @@ let make = () => {
     {
       ReasonReact.array(Array.of_list(allTodos))
     }
+    <a href="/reform">{"Use ReForm's array API" |> React.string}</a>
   </div>
 }

@@ -21,8 +21,6 @@ let make = () => {
   let {
     state,
     submit,
-    getFieldError,
-    handleChange,
     arrayPush,
     arrayUpdateByIndex,
     arrayRemoveByIndex,
@@ -93,6 +91,7 @@ let make = () => {
        </>
      )
    ->React.array}
+   <a href="/reducer">{"Use React's reducer" |> React.string}</a>
 </form>;
 };
 
