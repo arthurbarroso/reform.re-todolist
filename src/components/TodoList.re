@@ -23,5 +23,6 @@ let make = () => {
     {
       ReasonReact.array(Array.of_list(allTodos))
     }
+    <Input2 />
   </div>
 }
